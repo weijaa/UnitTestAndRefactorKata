@@ -14,16 +14,21 @@ public class EmployeeSalaryCalculator
 
     public decimal CalculateSalary(string employeeType, int employeeId, int month, int year)
     {
-        var hoursWorked = _employeeRepo.GetHoursWorked(employeeId, month, year); 
+        var hoursWorked = _employeeRepo.GetHoursWorked(employeeId, month, year);
+        return Salary(employeeType, hoursWorked);
+    }
+
+    public decimal Salary(string employeeType, int hoursWorked)
+    {
         decimal salary = 0;
 
         switch (employeeType)
         {
             case "Full-time":
-                salary = 3000; 
+                salary = 3000;
                 break;
             case "Part-time":
-                salary = hoursWorked * 20; 
+                salary = hoursWorked * 20;
                 break;
             default:
                 throw new NotSupportedException("Unknown employee type");
