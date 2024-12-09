@@ -1,6 +1,11 @@
 ﻿namespace UnitTestAndRefactorKata;
 
-public class EmployeeRepo
+public interface IEmployeeRepo
+{
+    int GetHoursWorked(int employeeId, int month, int year);
+}
+
+public class EmployeeRepo : IEmployeeRepo
 {
     public int GetHoursWorked(int employeeId, int month, int year)
     {
@@ -10,7 +15,16 @@ public class EmployeeRepo
 
 public class EmployeeSalaryCalculator
 {
-    private readonly EmployeeRepo _employeeRepo = new EmployeeRepo();
+    private readonly IEmployeeRepo _employeeRepo = new EmployeeRepo();
+
+    public EmployeeSalaryCalculator()
+    {
+        
+    }
+    public EmployeeSalaryCalculator(IEmployeeRepo employeeRepo)
+    {
+        _employeeRepo = employeeRepo;
+    }
 
     public decimal CalculateSalary(string employeeType, int employeeId, int month, int year)
     {

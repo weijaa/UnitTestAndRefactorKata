@@ -20,16 +20,17 @@ public class Tests
     [Test]
     public void part_time_should_get_calculator()
     {
-        var employeeSalaryCalculator = new FakeEmployeeSalaryCalculator();
+        var fakeEmployeeRepo = new FakeEmployeeRepo();
+        var employeeSalaryCalculator = new EmployeeSalaryCalculator(fakeEmployeeRepo);
         var calculateSalary = employeeSalaryCalculator.CalculateSalary("Part-time", 1, 1, 2021);
-        Assert.That(calculateSalary, Is.EqualTo(21*20));
+        Assert.That(calculateSalary, Is.EqualTo(30*20));
     }
 }
 
-public class FakeEmployeeSalaryCalculator : EmployeeSalaryCalculator
+public class FakeEmployeeRepo : IEmployeeRepo
 {
-    public override int GetHoursWorked(int employeeId, int month, int year)
+    public int GetHoursWorked(int employeeId, int month, int year)
     {
-        return 21;
+        return 30;
     }
 }
