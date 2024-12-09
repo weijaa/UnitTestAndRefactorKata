@@ -1,10 +1,20 @@
 ﻿namespace UnitTestAndRefactorKata;
 
+public class EmployeeRepo
+{
+    public int GetHoursWorked(string employeeId, int month, int year)
+    {
+        return (int)(DateTime.Now - new DateTime(year, month, 1)).TotalHours;
+    }
+}
+
 public class EmployeeSalaryCalculator
 {
+    private readonly EmployeeRepo _employeeRepo = new EmployeeRepo();
+
     public decimal CalculateSalary(string employeeType, string employeeId, int month, int year)
     {
-        var hoursWorked = GetHoursWorked(employeeId, month, year); // 從數據庫查詢工時
+        var hoursWorked = _employeeRepo.GetHoursWorked(employeeId, month, year); 
         decimal salary = 0;
 
         switch (employeeType)
@@ -20,9 +30,5 @@ public class EmployeeSalaryCalculator
         }
 
         return salary;
-    }
-    private int GetHoursWorked(string employeeId, int month, int year)
-    {
-        return new Random().Next(100, 200);
     }
 }
