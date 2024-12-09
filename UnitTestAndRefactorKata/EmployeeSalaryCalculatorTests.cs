@@ -20,9 +20,16 @@ public class Tests
     [Test]
     public void part_time_should_get_calculator()
     {
-        var employeeSalaryCalculator = new EmployeeSalaryCalculator();
-        var hoursWorked = 20;
-        var calculateSalary = employeeSalaryCalculator.Salary("Part-time", hoursWorked );
-        Assert.That(calculateSalary, Is.EqualTo(hoursWorked*20));
+        var employeeSalaryCalculator = new FakeEmployeeSalaryCalculator();
+        var calculateSalary = employeeSalaryCalculator.CalculateSalary("Part-time", 1, 1, 2021);
+        Assert.That(calculateSalary, Is.EqualTo(21*20));
+    }
+}
+
+public class FakeEmployeeSalaryCalculator : EmployeeSalaryCalculator
+{
+    public override int GetHoursWorked(int employeeId, int month, int year)
+    {
+        return 21;
     }
 }

@@ -14,12 +14,7 @@ public class EmployeeSalaryCalculator
 
     public decimal CalculateSalary(string employeeType, int employeeId, int month, int year)
     {
-        var hoursWorked = _employeeRepo.GetHoursWorked(employeeId, month, year);
-        return Salary(employeeType, hoursWorked);
-    }
-
-    public decimal Salary(string employeeType, int hoursWorked)
-    {
+        var hoursWorked = GetHoursWorked(employeeId, month, year);
         decimal salary = 0;
 
         switch (employeeType)
@@ -35,5 +30,11 @@ public class EmployeeSalaryCalculator
         }
 
         return salary;
+    }
+
+    public virtual int GetHoursWorked(int employeeId, int month, int year)
+    {
+        var hoursWorked = _employeeRepo.GetHoursWorked(employeeId, month, year);
+        return hoursWorked;
     }
 }
