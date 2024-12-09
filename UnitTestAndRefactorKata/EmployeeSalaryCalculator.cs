@@ -2,7 +2,7 @@
 
 public class EmployeeRepo
 {
-    public int GetHoursWorked(string employeeId, int month, int year)
+    public int GetHoursWorked(int employeeId, int month, int year)
     {
         return (int)(DateTime.Now - new DateTime(year, month, 1)).TotalHours;
     }
@@ -12,7 +12,7 @@ public class EmployeeSalaryCalculator
 {
     private readonly EmployeeRepo _employeeRepo = new EmployeeRepo();
 
-    public decimal CalculateSalary(string employeeType, string employeeId, int month, int year)
+    public decimal CalculateSalary(string employeeType, int employeeId, int month, int year)
     {
         var hoursWorked = _employeeRepo.GetHoursWorked(employeeId, month, year); 
         decimal salary = 0;
